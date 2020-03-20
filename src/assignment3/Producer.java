@@ -3,10 +3,10 @@ package assignment3;
 /**
  * produce quest in quest queue
  */
-public class QuestProducer extends Thread {
+public class Producer extends Thread {
     private Agenda agenda;
 
-    public QuestProducer(Agenda dataManager) {
+    public Producer(Agenda dataManager) {
         this.agenda = dataManager;
     }
 

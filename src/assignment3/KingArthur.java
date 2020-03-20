@@ -60,8 +60,6 @@ public class KingArthur extends Thread {
             case ENDING_MEETING_AND_LEAVE:
                 Thread.sleep(Params.getMinglingTime());
                 agenda.kingArthurEndMeetingAndLeave();
-                System.out.println("Meeting ends!");
-                System.out.println("King Arthur exits the Great Hall.");
                 behavior = Behavior.ENTERING_GREAT_HALL;
                 break;
         }

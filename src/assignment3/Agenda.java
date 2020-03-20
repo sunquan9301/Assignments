@@ -136,10 +136,10 @@ public class Agenda {
             if (kingInHall) {
                 kingInHallObj.wait();
             }
-            synchronized (knightStates) {
-                knightStates[knight.nameId][0] = STAND_IN_GREATE_HALL;
-                System.out.println("Knight " + (knight.nameId + 1) + " enters Great Hall.");
-            }
+            System.out.println("Knight " + (knight.nameId + 1) + " enters Great Hall.");
+        }
+        synchronized (knightStates) {
+            knightStates[knight.nameId][0] = STAND_IN_GREATE_HALL;
         }
     }
 
@@ -195,12 +195,12 @@ public class Agenda {
                 }
                 if (!canEnter) knightStates.wait();
             }
+        }
+        //king enter in hall and notify all knight
+        synchronized (kingInHallObj) {
             System.out.println("King Arthur enters the Great Hall.");
-            //king enter in hall and notify all knight
-            synchronized (kingInHallObj) {
-                kingInHall = true;
-                kingInHallObj.notifyAll();
-            }
+            kingInHall = true;
+            kingInHallObj.notifyAll();
         }
     }
 
@@ -216,12 +216,12 @@ public class Agenda {
                 }
             }
             if (!canStart) knightStates.wait();
+        }
+        //start meeting and notify all knight
+        synchronized (startMeetingObj) {
             System.out.println("Meeting begins!");
-            //start meeting and notify all knight
-            synchronized (startMeetingObj) {
-                kingStartMeeting = true;
-                startMeetingObj.notifyAll();
-            }
+            kingStartMeeting = true;
+            startMeetingObj.notifyAll();
         }
     }
 
@@ -237,10 +237,12 @@ public class Agenda {
                 }
             }
             if (!canEnd) knightStates.wait();
-            synchronized (kingInHallObj) {
-                kingInHall = false;
-                kingInHallObj.notifyAll();
-            }
+        }
+        synchronized (kingInHallObj) {
+            kingInHall = false;
+            System.out.println("Meeting ends!");
+            System.out.println("King Arthur exits the Great Hall.");
+            kingInHallObj.notifyAll();
         }
     }
 }

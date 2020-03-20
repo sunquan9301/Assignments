@@ -3,7 +3,7 @@ package assignment3;
 public class Main {
     public static void main(String[] args) throws Exception{
         Agenda agenda = new Agenda();
-        QuestProducer questProducer = new QuestProducer(agenda);
+        Producer questProducer = new Producer(agenda);
         questProducer.start();
         Thread.sleep(Params.getProduceQuestTime()*2);
         for (int i = 0; i < Params.KNIGHT_COUNT; i++) {
